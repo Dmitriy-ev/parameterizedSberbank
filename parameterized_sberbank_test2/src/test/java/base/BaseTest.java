@@ -44,42 +44,4 @@ public class BaseTest {
 	public void after(){
 		driver.quit();
 	}
-	protected void scrollApp() {
-		JavascriptExecutor jse = (JavascriptExecutor)driver;
-		jse.executeScript("window.scrollBy(0,-250)");
-	}
-	protected void scrollToElementJs(WebElement element) {
-		JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
-		javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", element);
-	}
-
-	protected void waitUtilElementToBeClickable(WebElement element) {
-		wait.until(ExpectedConditions.elementToBeClickable(element));
-	}
-
-	protected void waitUtilElementToBeVisible(By locator) {
-		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-	}
-
-	protected void waitUtilElementToBeVisible(WebElement element) {
-		wait.until(ExpectedConditions.visibilityOf(element));
-	}
-
-	protected void fillInputField(WebElement element, String value) {
-		waitUtilElementToBeClickable(element);
-		element.click();
-		element.sendKeys(value);
-		if(value.equals("9993432312")) {
-			Assert.assertEquals("Поле было заполнено некорректно",
-					"+7 (999) 343-23-12", element.getAttribute("value"));
-		}else {
-			Assert.assertEquals("Поле было заполнено некорректно",
-					value, element.getAttribute("value"));
-		}
-	}
-	protected void checkErrorMessageAtField(WebElement element, String errorMessage) {
-		element = element.findElement(By.xpath("../child::div"));
-		Assert.assertEquals("Проверка ошибки у поля не была пройдена",
-				errorMessage, element.getText());
-	}
 }
